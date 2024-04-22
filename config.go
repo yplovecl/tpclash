@@ -27,7 +27,6 @@ import (
 type TPClashConf struct {
 	ClashHome         string
 	ClashConfig       string
-	ClashUI           string
 	HttpHeader        []string
 	HttpTimeout       time.Duration
 	CheckInterval     time.Duration
@@ -35,9 +34,7 @@ type TPClashConf struct {
 	AutoFixMode       string
 
 	ForceExtract         bool
-	EnableTracing        bool
 	PrintVersion         bool
-	UpgradeWithGhProxy   bool
 	AllowStandardDNSPort bool
 
 	Test  bool

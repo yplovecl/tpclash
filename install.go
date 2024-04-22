@@ -62,9 +62,6 @@ var installCmd = &cobra.Command{
 		if conf.ClashConfig != "" {
 			opts += fmt.Sprintf(" %s %s", "--config", conf.ClashConfig)
 		}
-		if conf.ClashUI != "" {
-			opts += fmt.Sprintf(" %s %s", "--ui", conf.ClashUI)
-		}
 		if conf.CheckInterval > 0 {
 			opts += fmt.Sprintf(" %s %s", "--check-interval", conf.CheckInterval.String())
 		}
@@ -78,9 +75,6 @@ var installCmd = &cobra.Command{
 		}
 		if conf.ForceExtract {
 			opts += " --force-extract"
-		}
-		if conf.EnableTracing {
-			opts += " --enable-tracing"
 		}
 		if conf.AllowStandardDNSPort {
 			opts += " --allow-standard-dns"

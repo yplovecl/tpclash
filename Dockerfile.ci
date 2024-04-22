@@ -1,0 +1,24 @@
+FROM debian:stable-slim AS builder
+
+COPY build /build
+
+RUN mv /build/tpclash-linux-$(dpkg --print-architecture) /usr/local/bin/tpclash
+
+FROM debian:stable-slim AS dist
+
+ENV TZ Asia/Shanghai
+
+RUN set -ex \
+    && export DEBIAN_FRONTEND=noninteractive \
+    && apt update && apt upgrade -y && apt autoremove -y && apt autoclean -y \
+    && apt install tzdata ca-certificates curl iptables iproute2 -y \
+    && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
+    && echo ${TZ} > /etc/timezone \
+    && dpkg-reconfigure --frontend noninteractive tzdata \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /usr/local/bin/tpclash /usr/local/bin/tpclash
+
+VOLUME /etc/clash.yaml
+
+CMD ["tpclash"]
